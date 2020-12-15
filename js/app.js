@@ -48,8 +48,21 @@ function getRandomIndex(max) {
 function renderProducts() {
   var productOneIndex = getRandomIndex(allProducts.length);
   var productTwoIndex = getRandomIndex(allProducts.length);
+  while (productTwoIndex === productOneIndex) {
+    productTwoIndex = getRandomIndex(allProducts.length);
+  }
   var productThreeIndex = getRandomIndex(allProducts.length);
+  while (productThreeIndex === productTwoIndex || productThreeIndex === productOneIndex) {
+    productThreeIndex = getRandomIndex(allProducts.length);
+  }
 
+
+
+
+
+  productOneElement.innerHTML='';
+  productTwoElement.innerHTML='';
+  productThreeElement.innerHTML='';
   // while ()
   allProducts[productOneIndex].views++;
   allProducts[productTwoIndex].views++;
@@ -61,6 +74,7 @@ function renderProducts() {
 
   var displayImage = document.createElement('img');
   displayImage.setAttribute('src', allProducts[productOneIndex].src);
+  displayImage.setAttribute('title', allProducts[productOneIndex].name);
   productOneElement.appendChild(displayImage);
 
   displayElement = document.createElement('h2');
@@ -69,6 +83,7 @@ function renderProducts() {
 
   displayImage = document.createElement('img');
   displayImage.setAttribute('src', allProducts[productTwoIndex].src);
+  displayImage.setAttribute('title', allProducts[productTwoIndex].name);
   productTwoElement.appendChild(displayImage);
 
   displayElement = document.createElement('h2');
@@ -77,11 +92,13 @@ function renderProducts() {
 
   displayImage = document.createElement('img');
   displayImage.setAttribute('src', allProducts[productThreeIndex].src);
+  displayImage.setAttribute('title', allProducts[productThreeIndex].name);
   productThreeElement.appendChild(displayImage);
 }
 
 function handleClick(event) {
   actualClicks++;
+  console.log(actualClicks);
   var selectedProduct = event.target.title;
 
   for (var i = 0; i < allProducts.length; i++) {
