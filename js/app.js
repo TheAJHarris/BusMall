@@ -1,7 +1,7 @@
 'use strict';
 // console.log('hello');
 var allProducts = [];
-var maximumClicks = 5;
+var maximumClicks = 25;
 var actualClicks = 0;
 
 var productContainer = document.getElementById('container');
@@ -60,9 +60,9 @@ function renderProducts() {
 
 
 
-  productOneElement.innerHTML='';
-  productTwoElement.innerHTML='';
-  productThreeElement.innerHTML='';
+  productOneElement.innerHTML = '';
+  productTwoElement.innerHTML = '';
+  productThreeElement.innerHTML = '';
   // while ()
   allProducts[productOneIndex].views++;
   allProducts[productTwoIndex].views++;
@@ -111,12 +111,56 @@ function handleClick(event) {
 
   if (actualClicks === maximumClicks) {
     productContainer.removeEventListener('click', handleClick);
-    for (var j = 0; j < allProducts.length; j++) {
-      var liElement = document.createElement('li');
-      liElement.textContent = `${allProducts[j].name} was viewed ${allProducts[j].views} times and clicked ${allProducts[j].votes} times`;
-      resultsList.appendChild(liElement);
-    }
+
+    renderChart();
+
+    alert ('Thank you for taking the BusMall survey!!!');
   }
+}
+
+function renderChart(){
+  var productArray = [];
+  var votesArray = [];
+  var viewsArray = [];
+
+  for (var i = 0; i < allProducts.length; i++){
+    productArray.push(allProducts[i].name);
+    votesArray.push(allProducts[i].votes);
+    viewsArray.push(allProducts[i].views);
+  }
+  
+  var ctx = document.getElementById('myChart').getContext('2d');
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: productArray,
+      datasets: [{
+        label: 'Total Votes',
+        data: votesArray,
+        backgroundColor: 'red',
+        borderColor: 'black',
+        borderWidth: 5
+      },
+      {
+        label: 'Total Views',
+        data: viewsArray,
+        backgroundColor: 'yellow',
+        borderColor: 'black',
+        borderWidth: 3
+      }]
+    },
+    options: {
+      responsive: false,
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  });
+
 }
 
 renderProducts();

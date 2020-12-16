@@ -34,3 +34,9 @@ li {
   text-align: center;
   color: red;
 }
+
+canvas {
+  width: 960px;
+  height: 300px;
+  margin: auto;
+}
