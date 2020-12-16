@@ -20,26 +20,35 @@ function Product(name, src) {
   allProducts.push(this);
 }
 
-new Product('bag', 'jpg');
-new Product('banana', 'jpg');
-new Product('bathroom', 'jpg');
-new Product('boots', 'jpg');
-new Product('breakfast', 'jpg');
-new Product('bubblegum', 'jpg');
-new Product('chair', 'jpg');
-new Product('cthulhu', 'jpg');
-new Product('dog-duck', 'jpg');
-new Product('dragon', 'jpg');
-new Product('pen', 'jpg');
-new Product('pet-sweep', 'jpg');
-new Product('scissors', 'jpg');
-new Product('shark', 'jpg');
-new Product('sweep', 'png');
-new Product('tauntaun', 'jpg');
-new Product('unicorn', 'jpg');
-new Product('usb', 'gif');
-new Product('water-can', 'jpg');
-new Product('wine-glass', 'jpg');
+Product
+
+var retrievedProducts = localStorage.getItem('products');
+if(retrievedProducts){
+  allProducts = JSON.parse(retrievedProducts);
+} else {
+  new Product('bag', 'jpg');
+  new Product('banana', 'jpg');
+  new Product('bathroom', 'jpg');
+  new Product('boots', 'jpg');
+  new Product('breakfast', 'jpg');
+  new Product('bubblegum', 'jpg');
+  new Product('chair', 'jpg');
+  new Product('cthulhu', 'jpg');
+  new Product('dog-duck', 'jpg');
+  new Product('dragon', 'jpg');
+  new Product('pen', 'jpg');
+  new Product('pet-sweep', 'jpg');
+  new Product('scissors', 'jpg');
+  new Product('shark', 'jpg');
+  new Product('sweep', 'png');
+  new Product('tauntaun', 'jpg');
+  new Product('unicorn', 'jpg');
+  new Product('usb', 'gif');
+  new Product('water-can', 'jpg');
+  new Product('wine-glass', 'jpg');
+}
+
+
 
 function getRandomIndex(max) {
   return Math.floor(Math.random() * Math.floor(max));
@@ -115,6 +124,9 @@ function handleClick(event) {
     renderChart();
 
     alert ('Thank you for taking the BusMall survey!!!');
+
+    var stringifiedProducts = JSON.stringify(allProducts);
+    localStorage.setItem('products', stringifiedProducts);
   }
 }
 
